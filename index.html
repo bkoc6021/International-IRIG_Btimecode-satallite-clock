@@ -24,12 +24,14 @@
     /* Header: logo, saat, bayrak */
     .header {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 80%; /* Genişliği ihtiyaca göre ayarlayabilirsiniz */
+      max-width: 1200px;
     }
 
     .logo {
@@ -42,16 +44,15 @@
       font-size: 9em;
       letter-spacing: 4px;
       margin: 0;
-      flex-grow: 1;
       text-align: center;
+      flex-grow: 1;
     }
 
-    /* Türk bayrağı videosu sağda */
     .flag-video {
       height: 120px;
       width: auto;
       flex-shrink: 0;
-      border-radius: 0; /* kenarlar sivri */
+      border-radius: 0; /* Kenarlar sivri */
     }
 
     .info {
