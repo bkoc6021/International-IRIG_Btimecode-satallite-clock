@@ -10,15 +10,9 @@
       color: black;
       font-family: "Times New Roman";
       font-weight: bold;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      text-align: center;
-      position: relative;
       user-select: none;
+      overflow-x: hidden;
     }
 
     /* Header: logo, saat, bayrak */
@@ -32,24 +26,29 @@
       justify-content: space-between;
     }
 
+    /* Logo solda */
     .logo {
       height: 120px;
       width: auto;
       flex-shrink: 0;
     }
 
+    /* Saat ortada */
     .time {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 9em;
       letter-spacing: 4px;
-      margin: 0;
-      flex-grow: 1;
+      white-space: nowrap;
     }
 
+    /* Video sağda */
     .flag-video {
       height: 120px;
       width: auto;
       flex-shrink: 0;
-      border-radius: 0; /* kenarlar sivri */
+      border-radius: 0;
     }
 
     .info {
