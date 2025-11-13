@@ -38,7 +38,7 @@
   .flag-video {
     height: 120px;
     width: auto;
-    border-radius: 0; /* Kenarlar sivri */
+    border-radius: 0;
   }
 
   /* Saat: tam ortada */
@@ -64,18 +64,9 @@
     line-height: 1.5em;
     position: absolute;
     bottom: 70px;
-    text-align: center;
-    width: 100%;
+    text-align: center; /* Ortala */
   }
-/* Mobil yatay mod: yazıların üst üste gelmemesi ve ortalanması */
-@media screen and (max-width: 900px) and (orientation: landscape) {
-    .info {
-        font-size: 1em;
-        bottom: 60px;      /* alt kırmızı yazının pozisyonu */
-        text-align: center; /* ortala */
-        width: 90%;         /* kenarlardan boşluk bırak */
-        margin: 0 auto;
-    }
+
   .clickmsg {
     position: absolute;
     bottom: 20px;
@@ -86,8 +77,25 @@
     width: 100%;
   }
 
-  /* Mobil uyumlu */
-  @media screen and (max-width: 900px) and (orientation: landscape) {
+  /* Telefon dikey mod uyarısı */
+  .rotate-warning {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+  }
+
+  /* Mobil uyumlu ve dikey mod kontrolü */
+  @media screen and (max-width: 900px) {
     .logo, .flag-video {
       height: 60px;
     }
@@ -97,41 +105,18 @@
     .info {
       font-size: 1em;
     }
+    /* Dikey modda göster */
+    @media (orientation: portrait) {
+      .rotate-warning {
+        display: block;
+      }
+    }
   }
 </style>
 </head>
 <body>
-  <body>
 
-  <!-- Telefon dikey mod uyarısı -->
-  <div class="rotate-warning" id="rotateWarning">
-    Lütfen telefonu yatay hale getiriniz
-  </div>
-
-  <!-- Üst bar: logo ve video -->
-  <div class="top-bar">
-    <img src="UYDU .png" alt="Logo" class="logo">
-    <video class="flag-video" autoplay muted loop playsinline>
-      <source src="turkbayragi.mp4" type="video/mp4">
-      Tarayıcınız video etiketini desteklemiyor.
-    </video>
-  </div>
-
-  <!-- Saat tam ortada -->
-  <div class="time-container">
-    <div class="time" id="time"></div>
-  </div>
-
-  <!-- Alt bilgiler ve başlatma mesajı -->
-  <div class="info">
-    SES TONUNDA SAAT BİLGİSİ İLETİLMEKTEDİR. RECEIVER SES ÇIKIŞI IRIG-B UYUMLU SAATLERE
-    VE CİHAZLARA BAĞLANDIĞINDA, SAAT BİLGİSİ OTOMATİK OLARAK GÜNCELLEMEKTEDİR. 
-    BİLGİLENDİRME AMAÇLIDIR.
-  </div>
-
-  <div class="clickmsg" id="clickmsg">Başlatmak için tıklayın.</div>
-
-<!-- Yatay mod uyarısı -->
+<!-- Telefon dikey mod uyarısı -->
 <div class="rotate-warning" id="rotateWarning">
   Lütfen telefonu yatay hale getiriniz
 </div>
@@ -157,7 +142,6 @@
 </div>
 
 <div class="clickmsg" id="clickmsg">Başlatmak için tıklayın.</div>
-
 
 <script>
   /* === EKRAN SAATİ === */
@@ -250,8 +234,22 @@
       ctx=osc=gain=null;
     }
 
-    document.addEventListener("click",()=>{if(!run)start();});
-    document.addEventListener("touchstart",()=>{if(!run)start();});
+    // Dokununca başlat/durdur ve dikey mod kontrolü
+    function startStopAudio() {
+      const rotateWarning = document.getElementById("rotateWarning");
+      if (window.innerWidth < window.innerHeight) {
+        alert("Lütfen telefonu yatay hale getiriniz");
+        return;
+      }
+      if (!run) {
+        start();
+      } else {
+        stop();
+      }
+    }
+
+    document.addEventListener("click", startStopAudio);
+    document.addEventListener("touchstart", startStopAudio);
     document.addEventListener("keydown", e => {
       if(e.code==="Space"){ e.preventDefault(); run?stop():start(); }
     });
@@ -261,5 +259,3 @@
 
 </body>
 </html>
-
-
