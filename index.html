@@ -21,16 +21,15 @@
       user-select: none;
     }
 
-    /* Logo solda, video sağda */
+    /* Header: logo, saat, bayrak */
     .header {
       position: absolute;
       top: 20px;
       left: 20px;
+      right: 20px;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      gap: 20px; /* aralarındaki boşluk */
-      width: calc(100% - 40px);
+      justify-content: space-between;
     }
 
     .logo {
@@ -39,17 +38,18 @@
       flex-shrink: 0;
     }
 
-    .flag-video {
-      height: 120px;
-      width: auto;
-      border-radius: 5px;
-      flex-shrink: 0;
-    }
-
     .time {
       font-size: 9em;
       letter-spacing: 4px;
-      margin-top: -50px;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .flag-video {
+      height: 120px;
+      width: auto;
+      flex-shrink: 0;
+      border-radius: 0; /* kenarlar sivri */
     }
 
     .info {
@@ -88,13 +88,12 @@
 <body>
   <div class="header">
     <img src="UYDU .png" alt="Logo" class="logo">
+    <div class="time" id="time"></div>
     <video class="flag-video" autoplay muted loop playsinline>
       <source src="turkbayragi.mp4" type="video/mp4">
       Tarayıcınız video etiketini desteklemiyor.
     </video>
   </div>
-
-  <div class="time" id="time"></div>
 
   <div class="info">
     SES TONUNDA SAAT BİLGİSİ İLETİLMEKTEDİR. RECEIVER SES ÇIKIŞI IRIG-B UYUMLU SAATLERE
